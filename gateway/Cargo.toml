@@ -12,7 +12,19 @@ name = "l0gatewayd"
 path = "src/bin/server.rs"
 
 [dependencies]
+eth-service = { path = "../eth-service", optional = true }
+
 clap = { version = "4.4.14", features = [ "derive" ] }
 tokio = { version = "1.35.1", features = [ "macros", "rt-multi-thread" ] }
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
+
+[features]
+default = ["eth"]
+eth = ["dep:eth-service"]
+
+# override some release profile options
+[profile.release]
+strip = true # full sanitize symbols
+panic = "abort" # abort instread of unwind
+lto = "thin" # some link time optimizations
