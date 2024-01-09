@@ -5,7 +5,7 @@ edition = "2021"
 
 [[bin]]
 name = "l0gateway"
-path = "src/bin/cli.rs"
+path = "src/bin/client.rs"
 
 [[bin]]
 name = "l0gatewayd"

@@ -1,4 +1,4 @@
-//! L0-Gateway Command Line Interface
+//! L0-Gateway Command Line Interface & Client
 
 use std::path::PathBuf;
 
