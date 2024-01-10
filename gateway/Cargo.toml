@@ -28,9 +28,3 @@ tonic-build = "0.10.2"
 [features]
 default = ["eth"]
 eth = ["dep:eth-service"]
-
-# override some release profile options
-[profile.release]
-strip = true # full sanitize symbols
-panic = "abort" # abort instread of unwind
-lto = "thin" # some link time optimizations

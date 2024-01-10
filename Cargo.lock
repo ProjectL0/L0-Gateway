@@ -289,6 +289,13 @@ dependencies = [
 [[package]]
 name = "eth-service"
 version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "prost",
+ "tonic",
+ "tonic-build",
+ "tracing",
+]
 
 [[package]]
 name = "fastrand"

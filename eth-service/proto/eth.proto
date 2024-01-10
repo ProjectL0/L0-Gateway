@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package eth;
+
+service Eth {
+    rpc Hello(Ping) returns (Pong) {}
+}
+
+message Ping {
+    string payload = 1;
+}
+
+message Pong {
+    string payload = 1;
+}
