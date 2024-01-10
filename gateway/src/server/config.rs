@@ -1,8 +1,9 @@
 use super::DEFAULT_LISTEN_PORT;
 
+#[derive(Clone)]
 pub struct ServerConfig {
     /// Port for client-server connection.
-    listen_port: u16,
+    pub listen_port: u16,
 }
 
 impl Default for ServerConfig {

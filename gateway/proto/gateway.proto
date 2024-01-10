@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+package gateway;
+
+service Gateway {
+    rpc Hello(Ping) returns (Pong) {}
+}
+
+message Ping {
+    string payload = 1;
+}
+
+message Pong {
+    string payload = 1;
+}
+
