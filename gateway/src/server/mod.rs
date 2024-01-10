@@ -2,10 +2,11 @@
 
 use std::net::{TcpListener, SocketAddr};
 
-use self::{config::ServerConfig, rpc::GatewayRPC};
+use crate::rpc::{GatewayRPC, self, gateway_rpc::gateway_server::GatewayServer};
+
+use self::{config::ServerConfig};
 
 pub mod config;
-mod rpc;
 
 pub const DEFAULT_LISTEN_PORT: u16 = 8810;
 
@@ -27,7 +28,7 @@ impl Server {
         let gateway_rpc = GatewayRPC::default();
         println!("Gateway server listening on {}", self.local_addr);
         tonic::transport::Server::builder()
-            .add_service(rpc::gateway_rpc::gateway_server::GatewayServer::new(gateway_rpc))
+            .add_service(GatewayServer::new(gateway_rpc))
             .serve(self.local_addr)
             .await?;
         Ok(())
