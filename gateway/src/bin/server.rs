@@ -15,6 +15,10 @@ struct CliArgs {
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = CliArgs::parse();
+ 
+    // TODO: dynamic attach tracing client-subs
+    let local_trace_sub = tracing_subscriber::FmtSubscriber::new();
+    tracing::subscriber::set_global_default(local_trace_sub)?;
 
     let mut server = Server::new(ServerConfig::default())?;
     server.serve().await?;

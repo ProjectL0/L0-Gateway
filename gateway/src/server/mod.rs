@@ -2,6 +2,8 @@
 
 use std::net::{TcpListener, SocketAddr};
 
+use tracing::info;
+
 use crate::rpc::{GatewayRPC, self, gateway_rpc::gateway_server::GatewayServer};
 
 use self::{config::ServerConfig};
@@ -26,7 +28,7 @@ impl Server {
 
     pub async fn serve(&mut self) -> anyhow::Result<()> {
         let gateway_rpc = GatewayRPC::default();
-        println!("Gateway server listening on {}", self.local_addr);
+        info!("Gateway server listening on {}", self.local_addr);
         tonic::transport::Server::builder()
             .add_service(GatewayServer::new(gateway_rpc))
             .serve(self.local_addr)

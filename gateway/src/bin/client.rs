@@ -4,8 +4,8 @@ use std::{path::PathBuf, net::SocketAddr};
 
 use anyhow::{anyhow, Context};
 use clap::{Parser, Subcommand};
-use gateway::client::{Client};
-use tracing::{info, error, warn, debug};
+use gateway::client::{Client, ClientConfig};
+use tracing::info;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about)]
@@ -61,20 +61,17 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 },
             }
             match local_addr {
-                Some(addr) => {
-                    let mut client = Client::new(addr);
-                    client.connect().await?;
+                Some(local_addr) => {
+                    let mut client = Client::new(ClientConfig::new(local_addr)).await?;
                 },
                 None => {
-                    let mut client = Client::default();
-                    client.connect().await?;
+                    let mut client = Client::new(ClientConfig::default()).await?;
                 }
             }
         },
         Some(Commands::Down {  }) => unimplemented!(),
         Some(Commands::Attach { local_addr }) => {
-            let mut client = Client::new(local_addr);
-            client.connect().await?;
+            let mut client = Client::new(ClientConfig::new(local_addr)).await?;
         },
         None => {
             return Err(anyhow!("missing arguments"))?;

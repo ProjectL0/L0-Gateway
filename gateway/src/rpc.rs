@@ -6,6 +6,7 @@ pub mod gateway_rpc {
 
 use gateway_rpc::gateway_server::{Gateway, GatewayServer};
 use gateway_rpc::{Ping, Pong};
+use tracing::info;
 
 #[derive(Default)]
 pub struct GatewayRPC {}
@@ -13,7 +14,7 @@ pub struct GatewayRPC {}
 #[tonic::async_trait]
 impl Gateway for GatewayRPC {
     async fn hello(&self, request: Request<Ping>) -> Result<Response<Pong>, Status> {
-        println!("got ping from {:?}", request.remote_addr());
+        info!("got ping from {:?}", request.remote_addr());
         let res = gateway_rpc::Pong {
             payload: request.into_inner().payload,
         };
